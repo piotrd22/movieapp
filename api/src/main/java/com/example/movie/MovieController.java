@@ -2,6 +2,7 @@ package com.example.movie;
 
 import com.example.movie.dto.CreateMovieRequest;
 import com.example.movie.dto.MovieDto;
+import com.example.movie.dto.UpdateMovieRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,22 @@ public class MovieController {
     @GetMapping("/{id}")
     public MovieDto getMovie(@PathVariable Integer id) {
         Movie movie = movieService.getMovie(id);
+        return modelMapper.map(movie, MovieDto.class);
+    }
+
+    @PutMapping("/{id}")
+    public MovieDto updateMovie(@PathVariable Integer id, @Valid @RequestBody UpdateMovieRequest updateMovieRequest) {
+        Movie movie = movieService.getMovie(id);
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(updateMovieRequest, movie);
+        movie = movieService.createMovie(movie);
+        return modelMapper.map(movie, MovieDto.class);
+    }
+
+    @DeleteMapping("/{id}")
+    public MovieDto deleteMovie(@PathVariable Integer id) {
+        Movie movie = movieService.getMovie(id);
+        movieService.deleteMovie(movie);
         return modelMapper.map(movie, MovieDto.class);
     }
 }

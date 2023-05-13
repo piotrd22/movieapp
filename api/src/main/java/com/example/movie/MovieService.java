@@ -24,4 +24,9 @@ public class MovieService {
     public Movie createMovie(Movie movie) {
         return movieRepository.save(movie);
     }
+
+    public void deleteMovie(Movie movie) {
+        movieRepository.delete(movie);
+    }
+
 }
