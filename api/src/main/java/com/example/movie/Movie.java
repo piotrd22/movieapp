@@ -1,11 +1,14 @@
 package com.example.movie;
 
+import com.example.review.Review;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,10 +26,19 @@ public class Movie {
             generator = "movie_id_sequence"
     )
     private Integer id;
+
     private String title;
+
     private String director;
+
     private Integer year;
+
     private String description;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+    ;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false)
     private Date createdAt;
