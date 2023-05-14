@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/movie")
 public class MovieController {
     private final MovieService movieService;
-    
+
     private final ModelMapper modelMapper;
 
     public MovieController(MovieService movieService, ModelMapper modelMapper) {

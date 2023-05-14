@@ -14,7 +14,7 @@ public class WebSecurityConfig {
 
     public static final String ADMIN = "admin";
     public static final String USER = "user";
-    
+
     private final JwtAuthConverter jwtAuthConverter;
 
     public WebSecurityConfig(JwtAuthConverter jwtAuthConverter) {
@@ -24,7 +24,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .requestMatchers("/movie", "movie/**").permitAll()
+                .requestMatchers("/", "/**").permitAll()
+                .requestMatchers("/movie", "/movie/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .anyRequest().authenticated();
         http.oauth2ResourceServer()
