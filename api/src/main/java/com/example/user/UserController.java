@@ -1,7 +1,8 @@
 package com.example.user;
 
-import org.keycloak.admin.client.Keycloak;
+import com.example.user.dto.UserDto;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,21 +14,23 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Keycloak keycloak;
+    private final UserService userService;
+    private final ModelMapper modelMapper;
 
-
-    public UserController(Keycloak keycloak) {
-        this.keycloak = keycloak;
+    public UserController(UserService userService, ModelMapper modelMapper) {
+        this.userService = userService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/{id}")
-    public UserRepresentation getUser(@PathVariable("id") String id) {
-        return keycloak.realm("SpringReactKeycloak").users().get(id).toRepresentation();
+    public UserDto getUser(@PathVariable("id") String id) {
+        UserRepresentation user = userService.getUser(id);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @GetMapping
-    public List<UserRepresentation> getAllUsers() {
-        return keycloak.realm("SpringReactKeycloak").users().list();
+    public List<UserDto> getAllUsers() {
+        return userService.getUsers().stream().map(user -> modelMapper.map(user, UserDto.class)).toList();
     }
 
 //    @PostMapping
