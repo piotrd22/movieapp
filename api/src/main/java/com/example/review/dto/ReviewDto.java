@@ -13,6 +13,7 @@ public class ReviewDto {
     private Integer id;
     private Integer movieId;
     private Double rating;
+    private String userName;
     private String description;
     private Date createdAt;
     private Date updatedAt;

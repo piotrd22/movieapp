@@ -3,13 +3,11 @@ package com.example.user;
 import com.example.user.dto.UserDto;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public class UserRepository {
+    
     private static final String realmName = "SpringReactKeycloak";
 
     private final Keycloak keycloak;

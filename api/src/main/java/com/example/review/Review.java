@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -27,14 +25,15 @@ public class Review {
     )
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Movie movie;
 
     private Double rating;
 
     private String description;
+
+    private String userName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false)
