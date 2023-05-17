@@ -2,12 +2,11 @@ package com.example.review;
 
 import com.example.review.dto.CreateReviewRequest;
 import com.example.review.dto.ReviewDto;
+import com.example.review.dto.UpdateReviewRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -22,22 +21,26 @@ public class ReviewController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/movie/{id}")
-    public List<ReviewDto> getReviewsByMovieId(@PathVariable Integer id) {
-        return reviewService.getReviewsByMovieId(id).stream().map(review -> modelMapper.map(review, ReviewDto.class)).toList();
-    }
-
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/movie/{id}")
-    public ReviewDto createReview(@Valid @RequestBody CreateReviewRequest createReviewRequest, @PathVariable Integer id) {
+    @PostMapping("/{movieId}")
+    public ReviewDto createReview(@PathVariable Integer movieId, @Valid @RequestBody CreateReviewRequest createReviewRequest) {
         Review review = modelMapper.map(createReviewRequest, Review.class);
-        review = reviewService.createReview(review, id);
+        review = reviewService.createReview(review, movieId);
         return modelMapper.map(review, ReviewDto.class);
     }
 
     @GetMapping("/{id}")
     public ReviewDto getReview(@PathVariable Integer id) {
         Review review = reviewService.getReview(id);
+        return modelMapper.map(review, ReviewDto.class);
+    }
+
+    @PutMapping("/{id}")
+    public ReviewDto updateReview(@PathVariable Integer id, @Valid @RequestBody UpdateReviewRequest updateReviewRequest) {
+        Review review = reviewService.getReview(id);
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(updateReviewRequest, review);
+        review = reviewService.updateReview(review);
         return modelMapper.map(review, ReviewDto.class);
     }
 

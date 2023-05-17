@@ -24,9 +24,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, "/review/**").hasAnyRole(USER, ADMIN)
+                .requestMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(USER, ADMIN)
+                .requestMatchers(HttpMethod.DELETE, "/review/**").hasAnyRole(USER, ADMIN)
+                .requestMatchers(HttpMethod.POST, "/movie/**").hasRole(ADMIN)
+                .requestMatchers(HttpMethod.DELETE, "/movie/**").hasRole(ADMIN)
+                .requestMatchers(HttpMethod.PUT, "/movie/**").hasRole(ADMIN)
                 .requestMatchers("/", "/**").permitAll()
-                .requestMatchers("/movie", "/movie/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .anyRequest().authenticated();
         http.oauth2ResourceServer()
                 .jwt()

@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Movie {
     private String description;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews;
     ;
 
     @Temporal(TemporalType.TIMESTAMP)
