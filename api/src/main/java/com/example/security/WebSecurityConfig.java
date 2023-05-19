@@ -30,6 +30,8 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/movie/**").hasRole(ADMIN)
                 .requestMatchers(HttpMethod.DELETE, "/movie/**").hasRole(ADMIN)
                 .requestMatchers(HttpMethod.PUT, "/movie/**").hasRole(ADMIN)
+                .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyRole(USER, ADMIN)
+                .requestMatchers(HttpMethod.DELETE, "/user/**").hasAnyRole(USER, ADMIN)
                 .requestMatchers("/", "/**").permitAll()
                 .anyRequest().authenticated();
         http.oauth2ResourceServer()
