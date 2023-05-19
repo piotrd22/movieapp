@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/review")
@@ -49,5 +51,11 @@ public class ReviewController {
         Review review = reviewService.getReview(id);
         reviewService.deleteReview(review);
         return modelMapper.map(review, ReviewDto.class);
+    }
+
+    @GetMapping("/username/{username}")
+    public List<ReviewDto> getReviewsByUsername(@PathVariable String username) {
+        List<Review> reviews = reviewService.getReviewsByUsername(username);
+        return reviews.stream().map(review -> modelMapper.map(review, ReviewDto.class)).toList();
     }
 }

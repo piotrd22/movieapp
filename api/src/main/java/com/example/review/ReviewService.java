@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotAuthorizedException;
+import java.util.List;
 
 @Service
 public class ReviewService {
@@ -55,6 +56,10 @@ public class ReviewService {
         }
 
         throw new NotAuthorizedException("You can delete only your reviews");
+    }
+
+    public List<Review> getReviewsByUsername(String username) {
+        return reviewRepository.findByUserName(username);
     }
 
     private String getUserNameFromContext() {
