@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import WelcomePage from "./pages/WelcomePage";
+import SecuredPage from "./pages/SecuredPage";
+import AdminRoute from "./helpers/AdminRoute";
+import PrivateRoute from "./helpers/PrivateRoute";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>{" "}
+      <Navbar />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<WelcomePage />} />
+          <Route
+            path="/secured"
+            element={
+              <PrivateRoute>
+                <SecuredPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <SecuredPage />
+              </AdminRoute>
+            }
+          />
+        </Routes>
+      </Router>
     </>
   );
 }
