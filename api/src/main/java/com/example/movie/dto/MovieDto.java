@@ -16,6 +16,7 @@ public class MovieDto {
     private String title;
     private String director;
     private Integer year;
+    private String photoUrl;
     private String description;
     private List<ReviewDto> reviews;
     private Date createdAt;
