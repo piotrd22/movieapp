@@ -4,6 +4,7 @@ import Movie from "../components/Movie";
 
 function WelcomePage() {
   const [movies, setMovies] = useState([]);
+  const [isTop, setIsTop] = useState(true);
 
   const getMovies = async () => {
     const res = await axios.get(import.meta.env.VITE_API + "/movie");
@@ -20,8 +21,41 @@ function WelcomePage() {
     return <Movie movie={movie} key={index} />;
   });
 
+  useEffect(() => {
+    const onScroll = () => {
+      const { scrollTop } = document.documentElement;
+      if (scrollTop === 0) {
+        setIsTop(true);
+      } else {
+        setIsTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+    return () => window.removeEventListener("scroll", onScroll);
+  });
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="container mx-auto p-3 min-h-screen">{moviesComponent}</div>
+    <div className="container mx-auto p-3 min-h-screen">
+      {moviesComponent}
+      {!isTop && (
+        <button
+          className="btn btn-square fixed bottom-3 right-3 z-50 "
+          onClick={goToTop}
+        >
+          &#8593;
+        </button>
+      )}
+    </div>
   );
 }
 
