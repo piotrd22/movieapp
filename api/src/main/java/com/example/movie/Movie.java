@@ -30,13 +30,14 @@ public class Movie {
 
     private String director;
 
+    private String photoUrl;
+
     private Integer year;
 
     private String description;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
-    ;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false)

@@ -16,6 +16,10 @@ public class CreateMovieRequest {
     @Size(min = 1, message = "Director must be higher than 0 characters")
     private String director;
 
+    @NotNull(message = "Photo Url cannot be null")
+    @Size(min = 1, message = "Photo Url must be higher than 0 characters")
+    private String photoUrl;
+
     @NotNull(message = "Year cannot be null")
     @Min(value = 1800, message = "Year should not be less than 1800")
     private Integer year;

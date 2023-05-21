@@ -16,6 +16,9 @@ public class UpdateMovieRequest {
     @Min(value = 1800, message = "Year should not be less than 1800")
     private Integer year;
 
+    @Size(min = 1, message = "Photo Url must be higher than 0 characters")
+    private String photoUrl;
+
     @Size(min = 10, max = 1000, message
             = "Description must be between 10 and 1000 characters")
     private String description;
