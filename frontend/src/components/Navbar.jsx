@@ -4,7 +4,7 @@ const Navbar = () => {
   const { keycloak, initialized } = useKeycloak();
 
   return (
-    <nav className="navbar border-b bordered border-base-300 bg-base-100 mb-5">
+    <nav className="navbar border-b bordered border-base-300 bg-base-100 mb-5 p-5">
       <div className="container flex items-center justify-between mx-auto">
         <a href="/" className="flex items-center">
           <span className="self-center text-xl font-semibold ">MovieWEB</span>
@@ -13,12 +13,12 @@ const Navbar = () => {
         <ul className="menu menu-horizontal flex items-center justify-center px-1 ">
           {!keycloak.authenticated && (
             <li>
-              <a href="/update" className="btn">
+              <a href="/signup" className="btn btn-primary">
                 Signup
               </a>
               <button
                 type="button"
-                className="btn ml-2"
+                className="btn btn-primary ml-2"
                 onClick={() => keycloak.login()}
               >
                 Login
@@ -27,15 +27,15 @@ const Navbar = () => {
           )}
           {!!keycloak.authenticated && (
             <li>
-              <a href="/update" className="btn">
+              <a href="/update" className="btn btn-primary">
                 Search For Movie
               </a>
-              <a href="/update" className="btn ml-2">
+              <a href="/update" className="btn btn-primary ml-2">
                 Update Profile
               </a>
               <button
                 type="button"
-                className="btn ml-2"
+                className="btn btn-primary ml-2"
                 onClick={() => keycloak.logout()}
               >
                 Logout ({keycloak.tokenParsed.preferred_username})
