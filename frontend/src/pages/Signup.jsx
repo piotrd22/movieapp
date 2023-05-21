@@ -1,13 +1,13 @@
 import { notify, notifyError } from "../helpers/Notifiers";
-import { useKeycloak } from "@react-keycloak/web";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Signup() {
-  const { keycloak } = useKeycloak();
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const createUser = async (data) => {
     const res = await axios.post(`${import.meta.env.VITE_API}/user`, data);
@@ -34,7 +34,7 @@ function Signup() {
       .then(() => {
         notify("User has been created");
         reset();
-        keycloak.login();
+        navigate("/");
       })
       .catch((error) => {
         if (error.response?.data?.message) {
