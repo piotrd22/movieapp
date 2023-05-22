@@ -5,8 +5,10 @@ import keycloak from "./Keycloak.js";
 import App from "./App.jsx";
 import "./index.css";
 
+const initOptions = { pkceMethod: 'S256' };
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ReactKeycloakProvider authClient={keycloak}>
+  <ReactKeycloakProvider authClient={keycloak} initOptions={initOptions}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
