@@ -8,6 +8,7 @@ import PrivateRoute from "./helpers/PrivateRoute";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import More from "./pages/More";
+import UpdateReview from "./pages/UpdateReview";
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
           <Route exact path="/" element={<WelcomePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/more/:id" element={<More />} />
+          <Route
+            path="/review/:movieId/:id"
+            element={
+              <PrivateRoute>
+                <UpdateReview />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/secured"
             element={

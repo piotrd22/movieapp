@@ -12,6 +12,7 @@ function More() {
   const [movie, setMovie] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
+  const [isTop, setIsTop] = useState(true);
 
   const getMovie = async () => {
     const res = await axios.get(import.meta.env.VITE_API + "/movie/" + id);
@@ -36,7 +37,7 @@ function More() {
   }, []);
 
   const reviewsComponent = reviews?.map((review, index) => {
-    return <Review key={index} review={review} />;
+    return <Review key={index} review={review} setReviews={setReviews} />;
   });
 
   const createReview = async (data) => {
@@ -77,10 +78,35 @@ function More() {
         console.log(error);
         if (error.response?.status === 401) {
           notifyError("Unauthorized!");
+        } else if (error.response?.status === 409) {
+          notifyError(error.response.data.message);
         } else {
           notifyError("Error with adding review!");
         }
       });
+  };
+
+  useEffect(() => {
+    const onScroll = () => {
+      const { scrollTop } = document.documentElement;
+      if (scrollTop === 0) {
+        setIsTop(true);
+      } else {
+        setIsTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+    return () => window.removeEventListener("scroll", onScroll);
+  });
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -97,7 +123,7 @@ function More() {
             {movie?.title} ({movie?.year})
           </h2>
           <p>Director: {movie?.director}</p>
-          {!!rating && <p>Rating: {rating}</p>}
+          {!!rating && <p>Rating: {rating.toFixed(2)}</p>}
           <p>Description: {movie?.description}</p>
         </div>
         <p className="m-3 text-right">
@@ -158,6 +184,14 @@ function More() {
 
       {reviews.length > 0 && <h2 className="text-2xl mt-20">Reviews: </h2>}
       {reviewsComponent}
+      {!isTop && (
+        <button
+          className="btn btn-square fixed bottom-3 right-3 z-50 "
+          onClick={goToTop}
+        >
+          &#8593;
+        </button>
+      )}
     </div>
   );
 }
