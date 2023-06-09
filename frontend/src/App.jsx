@@ -2,13 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import WelcomePage from "./pages/WelcomePage";
-import SecuredPage from "./pages/SecuredPage";
-import AdminRoute from "./helpers/AdminRoute";
 import PrivateRoute from "./helpers/PrivateRoute";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import More from "./pages/More";
 import UpdateReview from "./pages/UpdateReview";
+import UpdateUser from "./pages/UpdateUser";
 
 function App() {
   return (
@@ -40,19 +39,11 @@ function App() {
             }
           />
           <Route
-            path="/secured"
+            path="/update/:id"
             element={
               <PrivateRoute>
-                <SecuredPage />
+                <UpdateUser />
               </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <SecuredPage />
-              </AdminRoute>
             }
           />
         </Routes>
