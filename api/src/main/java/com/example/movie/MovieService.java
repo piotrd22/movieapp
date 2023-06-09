@@ -17,6 +17,10 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public List<Movie> searchMovies(String keyword, String sortDirection) {
+        return movieRepository.findByTitleOrDirectorLikeAndSort(keyword, sortDirection);
+    }
+
     public Movie getMovie(Integer id) {
         return movieRepository.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
     }
@@ -28,5 +32,4 @@ public class MovieService {
     public void deleteMovie(Movie movie) {
         movieRepository.delete(movie);
     }
-
 }
