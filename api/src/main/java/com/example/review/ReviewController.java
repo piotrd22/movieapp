@@ -3,6 +3,7 @@ package com.example.review;
 import com.example.review.dto.CreateReviewRequest;
 import com.example.review.dto.ReviewDto;
 import com.example.review.dto.UpdateReviewRequest;
+import com.example.review.exception.ReviewAlreadyExistsException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class ReviewController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{movieId}")
-    public ReviewDto createReview(@PathVariable Integer movieId, @Valid @RequestBody CreateReviewRequest createReviewRequest) {
+    public ReviewDto createReview(@PathVariable Integer movieId, @Valid @RequestBody CreateReviewRequest createReviewRequest) throws ReviewAlreadyExistsException {
         Review review = modelMapper.map(createReviewRequest, Review.class);
         review = reviewService.createReview(review, movieId);
         return modelMapper.map(review, ReviewDto.class);

@@ -3,6 +3,7 @@ package com.example.review;
 import com.example.movie.Movie;
 import com.example.movie.MovieRepository;
 import com.example.movie.exception.MovieNotFoundException;
+import com.example.review.exception.ReviewAlreadyExistsException;
 import com.example.review.exception.ReviewNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,10 +28,15 @@ public class ReviewService {
         return reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
     }
 
-    public Review createReview(Review review, Integer movieId) {
+    public Review createReview(Review review, Integer movieId) throws ReviewAlreadyExistsException {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new MovieNotFoundException(movieId));
         String userName = getUserNameFromContext();
+
+        if (reviewRepository.findByMovieIdAndUserName(movieId, userName) != null) {
+            throw new ReviewAlreadyExistsException();
+        }
+
         review.setMovie(movie);
         review.setUserName(userName);
         return reviewRepository.save(review);
