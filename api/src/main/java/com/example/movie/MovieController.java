@@ -36,6 +36,14 @@ public class MovieController {
         return modelMapper.map(movie, MovieDto.class);
     }
 
+    @GetMapping("/search")
+    public List<MovieDto> searchMovies(
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @RequestParam(name = "sort", defaultValue = "asc") String sortDirection
+    ) {
+        return movieService.searchMovies(keyword, sortDirection).stream().map(movie -> modelMapper.map(movie, MovieDto.class)).toList();
+    }
+
     @GetMapping("/{id}")
     public MovieDto getMovie(@PathVariable Integer id) {
         Movie movie = movieService.getMovie(id);
