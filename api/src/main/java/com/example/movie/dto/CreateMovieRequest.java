@@ -24,7 +24,7 @@ public class CreateMovieRequest {
     @Min(value = 1800, message = "Year should not be less than 1800")
     private Integer year;
 
-    @Size(min = 10, max = 1000, message
-            = "Description must be between 10 and 1000 characters")
+    @Size(min = 10, max = 3000, message
+            = "Description must be between 10 and 3000 characters")
     private String description;
 }
