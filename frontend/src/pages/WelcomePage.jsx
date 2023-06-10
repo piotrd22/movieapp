@@ -33,7 +33,7 @@ function WelcomePage() {
       return res.data;
     } else if (sort) {
       const res = await axios.get(
-        import.meta.env.VITE_API + "/movie/search?sort=" + sort
+        import.meta.env.VITE_API + "/movie/search?keyword=&sort=" + sort
       );
       return res.data;
     }
@@ -97,6 +97,17 @@ function WelcomePage() {
     setIsButtonClear(false);
   };
 
+  const onClickSort = () => {
+    searchMovies(keyword)
+      .then((movies) => {
+        setMovies(movies);
+        reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="container mx-auto p-3 min-h-screen">
       <div className="w-full flex justify-between flex-wrap">
@@ -143,8 +154,12 @@ function WelcomePage() {
           <option disabled value="">
             Sort by:
           </option>
-          <option value="desc">From the latest</option>
-          <option value="asc">From the oldest</option>
+          <option onClick={onClickSort} value="desc">
+            From the latest
+          </option>
+          <option onClick={onClickSort} value="asc">
+            From the oldest
+          </option>
         </select>
       </div>
       {keyword && isButtonClear ? (
