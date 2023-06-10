@@ -3,6 +3,8 @@ import { useKeycloak } from "@react-keycloak/web";
 const Navbar = () => {
   const { keycloak } = useKeycloak();
 
+  const isAdmin = keycloak.authenticated && keycloak.hasRealmRole("app_admin");
+
   return (
     <nav className="navbar border-b bordered border-base-300 bg-base-100 mb-5 p-5">
       <div className="container flex items-center justify-between mx-auto">
@@ -27,6 +29,11 @@ const Navbar = () => {
           )}
           {!!keycloak.authenticated && (
             <li>
+              {isAdmin && (
+                <a href="/admin" className="btn btn-primary ml-2">
+                  Admin Panel
+                </a>
+              )}
               <a
                 href={`/update/${keycloak.idTokenParsed.sub}`}
                 className="btn btn-primary ml-2"

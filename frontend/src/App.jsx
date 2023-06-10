@@ -8,6 +8,8 @@ import Signup from "./pages/Signup";
 import More from "./pages/More";
 import UpdateReview from "./pages/UpdateReview";
 import UpdateUser from "./pages/UpdateUser";
+import AdminRoute from "./helpers/AdminRoute";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   return (
@@ -30,6 +32,14 @@ function App() {
           <Route exact path="/" element={<WelcomePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/more/:id" element={<More />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            }
+          />
           <Route
             path="/review/:movieId/:id"
             element={

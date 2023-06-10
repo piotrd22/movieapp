@@ -49,6 +49,9 @@ function Signup() {
 
   return (
     <div className="container mx-auto p-5">
+      <a href="/" className="btn btn-primary">
+        &#8592; Back
+      </a>
       <h1 className="text-center mt-3 mb-3 text-3xl">SIGN UP</h1>
       <form
         className="sm:w-full lg:w-1/2 flex flex-col justify-items-center mx-auto"
