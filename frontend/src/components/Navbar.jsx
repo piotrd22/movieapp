@@ -3,7 +3,7 @@ import { useKeycloak } from "@react-keycloak/web";
 const Navbar = () => {
   const { keycloak } = useKeycloak();
 
-  const isAdmin = keycloak.authenticated && keycloak.hasRealmRole("app_admin");
+  const isAdmin = keycloak.hasRealmRole("app_admin");
 
   return (
     <nav className="navbar border-b bordered border-base-300 bg-base-100 mb-5 p-5">
@@ -39,6 +39,9 @@ const Navbar = () => {
               )}
               <a href="/topmovies" className="btn btn-primary ml-2">
                 TOP MOVIES
+              </a>
+              <a href="/myreviews" className="btn btn-primary ml-2">
+                MY REVIEWS
               </a>
               <a
                 href={`/update/${keycloak.idTokenParsed.sub}`}

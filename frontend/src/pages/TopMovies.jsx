@@ -54,9 +54,6 @@ function TopMovies() {
 
   return (
     <div className="container mx-auto p-3 min-h-screen">
-      <a href="/" className="btn btn-primary">
-        &#8592; Back
-      </a>
       <h1 className="text-center mt-3 mb-10 text-3xl">TOP MOVIES</h1>{" "}
       <div className="w-full flex justify-center flex-wrap">
         <select

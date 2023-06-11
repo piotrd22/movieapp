@@ -12,6 +12,7 @@ import AdminRoute from "./helpers/AdminRoute";
 import AdminPanel from "./pages/AdminPanel";
 import UpdateMovie from "./pages/UpdateMovie";
 import TopMovies from "./pages/TopMovies";
+import MyReviews from "./pages/MyReviews";
 
 function App() {
   return (
@@ -49,6 +50,14 @@ function App() {
               <AdminRoute>
                 <UpdateMovie />
               </AdminRoute>
+            }
+          />
+          <Route
+            path="myreviews"
+            element={
+              <PrivateRoute>
+                <MyReviews />
+              </PrivateRoute>
             }
           />
           <Route

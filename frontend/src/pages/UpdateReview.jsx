@@ -7,7 +7,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function UpdateReview() {
-  const { id, movieId } = useParams();
+  const { id } = useParams();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ function UpdateReview() {
     updateReview(data)
       .then(() => {
         notify("Review has been updated!");
-        navigate(`/more/${movieId}`);
+        navigate(`/myreviews`);
         reset();
       })
       .catch((error) => {
@@ -72,48 +72,43 @@ function UpdateReview() {
 
   return (
     <div className="container mx-auto p-5">
-      <a href={`/more/${movieId}`} className="btn btn-primary">
-        &#8592; Back
-      </a>
+      <h1 className="text-center mt-3 mb-3 text-3xl">UPDATE REVIEW</h1>
       <form
-        className="mt-6 sm:w-full lg:w-1/2 flex flex-col justify-items-center mx-auto"
+        className="sm:w-full lg:w-1/2 flex flex-col justify-items-center mx-auto"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-center">
-          <input
-            placeholder="description..."
-            className="input input-bordered w-9/12 sm:w-10/12 my-3"
-            type="text"
-            {...register("description", {
-              required: "This field is required!",
-              pattern: {
-                value: /^[^\s]+(?:$|.*[^\s]+$)/g,
-                message: "This field can't start or end with whitespace!",
-              },
-            })}
-          />
-          {errors.description && (
-            <div className="my-2">{errors.description.message}</div>
-          )}
-        </div>
-        <div className="flex items-center">
-          <input
-            className="input input-bordered w-9/12 sm:w-10/12 my-3"
-            type="number"
-            min="0"
-            max="10"
-            step="0.5"
-            {...register("rating", {
-              required: "This field is required!",
-            })}
-          />
-          {errors.rating && <div className="my-2">{errors.rating.message}</div>}
-        </div>
-        <div className="flex">
-          <button type="submit" className="btn btn-primary my-5">
-            UPDATE REVIEW
-          </button>
-        </div>
+        <label className="mt-5 mb-2">Description</label>
+
+        <input
+          placeholder="description..."
+          className="input input-bordered w-full"
+          type="text"
+          {...register("description", {
+            required: "This field is required!",
+            pattern: {
+              value: /^[^\s]+(?:$|.*[^\s]+$)/g,
+              message: "This field can't start or end with whitespace!",
+            },
+          })}
+        />
+        {errors.description && (
+          <div className="my-2">{errors.description.message}</div>
+        )}
+        <label className="mt-5 mb-2">Rating</label>
+        <input
+          className="input input-bordered w-full"
+          type="number"
+          min="0"
+          max="10"
+          step="0.5"
+          {...register("rating", {
+            required: "This field is required!",
+          })}
+        />
+        {errors.rating && <div className="my-2">{errors.rating.message}</div>}
+        <button type="submit" className="btn btn-primary my-5 mx-auto flex">
+          UPDATE REVIEW
+        </button>
       </form>
     </div>
   );

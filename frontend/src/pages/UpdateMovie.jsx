@@ -23,6 +23,7 @@ function UpdateMovie() {
         setValue("director", movie.director, { shouldTouch: true });
         setValue("year", movie.year, { shouldTouch: true });
         setValue("description", movie.description, { shouldTouch: true });
+        setValue("photoUrl", movie.photoUrl, { shouldTouch: true });
       })
       .catch((error) => console.log(error));
   }, []);
@@ -54,8 +55,7 @@ function UpdateMovie() {
       director: "",
       year: "",
       description: "",
-      photoUrl:
-        "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
+      photoUrl: "",
     },
   });
 
@@ -133,6 +133,18 @@ function UpdateMovie() {
         {errors.description && (
           <div className="my-2">{errors.description.message}</div>
         )}
+        <label className="mt-5 mb-2">Photo url</label>
+        <input
+          className="input input-bordered w-full"
+          type="text"
+          {...register("photoUrl", {
+            required: "This field is required!",
+            pattern: {
+              value: /^[^\s]+(?:$|.*[^\s]+$)/g,
+              message: "This field can't start or end with whitespace!",
+            },
+          })}
+        />
         <button className="btn btn-primary my-5 mx-auto flex">UPDATE</button>
       </form>
     </div>
