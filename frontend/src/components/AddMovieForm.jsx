@@ -99,7 +99,6 @@ function AddMovieForm() {
         <label className="mt-5 mb-2">Descrpition</label>
         <textarea
           className="input input-bordered w-full"
-          type="text"
           {...register("description", {
             required: "This field is required!",
           })}
