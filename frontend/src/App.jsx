@@ -10,6 +10,8 @@ import UpdateReview from "./pages/UpdateReview";
 import UpdateUser from "./pages/UpdateUser";
 import AdminRoute from "./helpers/AdminRoute";
 import AdminPanel from "./pages/AdminPanel";
+import UpdateMovie from "./pages/UpdateMovie";
+import TopMovies from "./pages/TopMovies";
 
 function App() {
   return (
@@ -32,11 +34,20 @@ function App() {
           <Route exact path="/" element={<WelcomePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/more/:id" element={<More />} />
+          <Route path="/topmovies" element={<TopMovies />} />
           <Route
             path="/admin"
             element={
               <AdminRoute>
                 <AdminPanel />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/movie/:id"
+            element={
+              <AdminRoute>
+                <UpdateMovie />
               </AdminRoute>
             }
           />
