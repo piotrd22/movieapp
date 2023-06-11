@@ -53,7 +53,11 @@ function Movie({ movie, setMovies }) {
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl m-10">
       <figure>
-        <img src={`${movie.photoUrl}`} alt="Album" />
+        <img
+          src={`${movie.photoUrl}`}
+          alt="Album"
+          className="w-72 h-60 lg:w-96 lg:h-80"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">

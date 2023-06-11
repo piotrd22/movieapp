@@ -4,7 +4,7 @@ import Stats from "../components/Stats";
 
 function AdminPanel() {
   const [isAddMovie, setIsAddMovie] = useState(false);
-  const [isStats, setStats] = useState(false);
+  const [isStats, setStats] = useState(true);
 
   const onClickAdd = () => {
     setIsAddMovie(!isAddMovie);
@@ -18,9 +18,6 @@ function AdminPanel() {
 
   return (
     <div className="container mx-auto p-5">
-      <a href="/" className="btn btn-primary">
-        &#8592; Back
-      </a>
       <h1 className="text-center mt-3 mb-10 text-3xl">ADMIN PANEL</h1>
       <div className="flex justify-center">
         <button onClick={onClickAdd} className="btn btn-secondary mr-10">
