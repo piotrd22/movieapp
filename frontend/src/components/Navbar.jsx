@@ -15,6 +15,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal flex items-center justify-center px-1 ">
           {!keycloak.authenticated && (
             <li>
+              <a href="/topmovies" className="btn btn-primary ml-2">
+                TOP MOVIES
+              </a>
               <a href="/signup" className="btn btn-primary ml-2">
                 Signup
               </a>
@@ -34,6 +37,9 @@ const Navbar = () => {
                   Admin Panel
                 </a>
               )}
+              <a href="/topmovies" className="btn btn-primary ml-2">
+                TOP MOVIES
+              </a>
               <a
                 href={`/update/${keycloak.idTokenParsed.sub}`}
                 className="btn btn-primary ml-2"

@@ -8,7 +8,6 @@ function WelcomePage() {
   const [movies, setMovies] = useState([]);
   const [isTop, setIsTop] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-
   const [keyword, setKeyword] = useState("");
   const [sort, setSort] = useState("");
   const [isButtonClear, setIsButtonClear] = useState(false);
@@ -55,7 +54,7 @@ function WelcomePage() {
   }, [keyword, sort]);
 
   const moviesComponent = movies?.map((movie, index) => {
-    return <Movie movie={movie} key={index} />;
+    return <Movie movie={movie} key={index} setMovies={setMovies} />;
   });
 
   useEffect(() => {
