@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import { useForm } from "react-hook-form";
+import Loader from "../components/Loader";
 
 function WelcomePage() {
   const [movies, setMovies] = useState([]);
   const [isTop, setIsTop] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [keyword, setKeyword] = useState("");
   const [sort, setSort] = useState("");
@@ -13,6 +15,7 @@ function WelcomePage() {
 
   const getMovies = async () => {
     const res = await axios.get(import.meta.env.VITE_API + "/movie");
+    setIsLoading(false);
     return res.data;
   };
 
@@ -25,16 +28,19 @@ function WelcomePage() {
           "&sort=" +
           sort
       );
+      setIsLoading(false);
       return res.data;
     } else if (keyword) {
       const res = await axios.get(
         import.meta.env.VITE_API + "/movie/search?keyword=" + keyword
       );
+      setIsLoading(false);
       return res.data;
     } else if (sort) {
       const res = await axios.get(
         import.meta.env.VITE_API + "/movie/search?keyword=&sort=" + sort
       );
+      setIsLoading(false);
       return res.data;
     }
   };
@@ -107,6 +113,8 @@ function WelcomePage() {
         console.log(error);
       });
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="container mx-auto p-3 min-h-screen">

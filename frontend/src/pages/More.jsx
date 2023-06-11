@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Review from "../components/Review";
 import { useKeycloak } from "@react-keycloak/web";
 import { useForm } from "react-hook-form";
+import Loader from "../components/Loader";
 
 function More() {
   const { id } = useParams();
@@ -13,9 +14,11 @@ function More() {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [isTop, setIsTop] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getMovie = async () => {
     const res = await axios.get(import.meta.env.VITE_API + "/movie/" + id);
+    setIsLoading(false);
     return res.data;
   };
 
@@ -108,6 +111,8 @@ function More() {
       behavior: "smooth",
     });
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="container mx-auto p-5">
