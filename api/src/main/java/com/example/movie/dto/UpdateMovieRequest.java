@@ -19,7 +19,7 @@ public class UpdateMovieRequest {
     @Size(min = 1, message = "Photo Url must be higher than 0 characters")
     private String photoUrl;
 
-    @Size(min = 10, max = 1000, message
-            = "Description must be between 10 and 1000 characters")
+    @Size(min = 10, max = 3000, message
+            = "Description must be between 10 and 3000 characters")
     private String description;
 }

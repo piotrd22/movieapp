@@ -17,4 +17,11 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> { // Inte
             "CASE WHEN :sortDirection = 'desc' THEN m.year END DESC")
     List<Movie> findByTitleOrDirectorLikeAndSort(String keyword, String sortDirection);
 
+    @Query("SELECT m FROM Movie m " +
+            "INNER JOIN m.reviews r " +
+            "GROUP BY m.id, m.title, m.director, m.photoUrl, m.year, m.description, m.createdAt, m.updatedAt " +
+            "ORDER BY " +
+            "CASE WHEN :sortDirection = 'asc' THEN AVG(r.rating) END ASC, " +
+            "CASE WHEN :sortDirection = 'desc' THEN AVG(r.rating) END DESC")
+    List<Movie> findByOrderByRating(String sortDirection);
 }
