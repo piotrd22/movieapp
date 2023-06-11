@@ -44,6 +44,11 @@ public class MovieController {
         return movieService.searchMovies(keyword, sortDirection).stream().map(movie -> modelMapper.map(movie, MovieDto.class)).toList();
     }
 
+    @GetMapping("/topmovies")
+    public List<MovieDto> getTopMovies(@RequestParam(name = "sort", defaultValue = "desc") String sortDirection) {
+        return movieService.getTopMovies(sortDirection).stream().map(movie -> modelMapper.map(movie, MovieDto.class)).toList();
+    }
+
     @GetMapping("/{id}")
     public MovieDto getMovie(@PathVariable Integer id) {
         Movie movie = movieService.getMovie(id);

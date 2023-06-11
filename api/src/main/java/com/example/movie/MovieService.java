@@ -32,4 +32,8 @@ public class MovieService {
     public void deleteMovie(Movie movie) {
         movieRepository.delete(movie);
     }
+
+    public List<Movie> getTopMovies(String sortDirection) {
+        return movieRepository.findByOrderByRating(sortDirection);
+    }
 }
