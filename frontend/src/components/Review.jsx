@@ -8,6 +8,12 @@ function Review({ review, setReviews, movieTitle }) {
   const { keycloak } = useKeycloak();
   const [mTitle, setMTitle] = useState("");
 
+  const isAdmin = keycloak.authenticated && keycloak.hasRealmRole("app_admin");
+
+  const isThisUser =
+    keycloak.authenticated &&
+    keycloak.tokenParsed.preferred_username === review.userName;
+
   const fetchDeleteReview = async () => {
     const config = {
       headers: {
@@ -46,6 +52,36 @@ function Review({ review, setReviews, movieTitle }) {
     });
   };
 
+  const elemToShow = () => {
+    if ((isAdmin && isThisUser) || (isThisUser && !isAdmin)) {
+      return (
+        <div>
+          <a
+            href={`/review/${review.movieId}/${review.id}`}
+            className="mr-2 btn btn-secondary"
+          >
+            Update
+          </a>
+          <button onClick={deleteReview} className="btn btn-accent mr-2">
+            &#10005;
+          </button>
+          {new Date(review.createdAt).toLocaleDateString()}
+        </div>
+      );
+    } else if (isAdmin && !isThisUser) {
+      return (
+        <div>
+          <button onClick={deleteReview} className="btn btn-accent mr-2">
+            &#10005;
+          </button>
+          {new Date(review.createdAt).toLocaleDateString()}
+        </div>
+      );
+    } else {
+      return <div>{new Date(review.createdAt).toLocaleDateString()}</div>;
+    }
+  };
+
   if (movieTitle) {
     const getMovieTitle = async () => {
       const res = await axios.get(
@@ -70,35 +106,11 @@ function Review({ review, setReviews, movieTitle }) {
       </div>
       <div className="w-full mt-2">
         {!movieTitle ? (
-          <div className="flex items-center justify-end">
-            <div>
-              <a
-                href={`/review/${review.movieId}/${review.id}`}
-                className="mr-2 btn btn-secondary"
-              >
-                Update
-              </a>
-              <button onClick={deleteReview} className="mr-2 btn btn-accent">
-                &#10005;
-              </button>
-              {new Date(review.createdAt).toLocaleDateString()}
-            </div>
-          </div>
+          <div className="flex items-center justify-end">{elemToShow()}</div>
         ) : (
           <div className="flex items-center justify-between">
             <div className="ml-2">To: {mTitle}</div>
-            <div>
-              <a
-                href={`/review/${review.movieId}/${review.id}`}
-                className="mr-2 btn btn-secondary"
-              >
-                Update
-              </a>
-              <button onClick={deleteReview} className="mr-2 btn btn-accent">
-                &#10005;
-              </button>
-              {new Date(review.createdAt).toLocaleDateString()}
-            </div>
+            {elemToShow()}
           </div>
         )}
       </div>

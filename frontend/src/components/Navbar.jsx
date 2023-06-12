@@ -1,7 +1,9 @@
 import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
 
   const isAdmin = keycloak.hasRealmRole("app_admin");
 
@@ -52,7 +54,10 @@ const Navbar = () => {
               <button
                 type="button"
                 className="btn btn-primary ml-2"
-                onClick={() => keycloak.logout()}
+                onClick={() => {
+                  navigate("/");
+                  keycloak.logout();
+                }}
               >
                 Logout ({keycloak.tokenParsed.preferred_username})
               </button>
