@@ -7,7 +7,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/movieapp
+    url: jdbc:postgresql://postgresdb:5432/movieapp
     username: postgres
     password: password
   jpa:
@@ -22,7 +22,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/SpringReactKeycloak
+          issuer-uri: http://keycloak:8080/realms/SpringReactKeycloak
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 jwt:
@@ -37,4 +37,4 @@ logging:
 
 app:
   cors:
-    allowed-origins: http://localhost:5173, http://localhost:8080, http://127.0.0.1:5173
+    allowed-origins: http://localhost:5173, http://localhost:8080, http://127.0.0.1:5173, http://localhost, http://localhost:80, http://keycloak:8080
